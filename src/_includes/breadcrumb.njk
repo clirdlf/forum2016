@@ -1,0 +1,28 @@
+<a class="visually-hidden-focusable" href="#content">Skip to main content</a>
+
+<header>
+    <a href="/" class="home-link">{{ metadata.title }}</a>
+
+    {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+    <nav aria-label="breadcrumb">
+        <h2 class="visually-hidden">Top level navigation menu</h2>
+        <ol class="breadcrumb">
+
+        </ol>
+
+        <ul class="nav">
+        {%- for entry in collections.all | eleventyNavigation %}
+            <li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+        {%- endfor %}
+        </ul>
+    </nav>
+</header>
+
+
+key:
+{# https://github.com/11ty/11ty-website/blob/bb628e49196379ae75bb2da347bec3ffb2842414/src/_includes/layouts/docs.njk#L13 #}
+{# {{ collections.sidebarNav | eleventyNavigationBreadcrumb(eleventyNavigation.parent, {includeSelf: true}) | eleventyNavigationToHtml({ listClass: 'fl fl-inline', activeListItemClass: 'breadcrumb-active' }) | safe }} #}
+
+navigation: {{ colections.all | eleventyNavigation('2014 Forum: Atlanta') | eleventyNavigationToHtml | safe }}
+
+{{ eleventyNavigation.key }}<br>
