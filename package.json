@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "DLF Forum 2016",
   "scripts": {
-    "build": "npx @11ty/eleventy",
-    "build-ghpages": "npx @11ty/eleventy",
-    "start": "npx @11ty/eleventy --serve --quiet",
+    "start": "eleventy --serve --incremental",
+    "watch": "eleventy --watch",
+    "serve": "eleventy --serve",
+    "bench": "DEBUG=Eleventy:Benchmark* eleventy",
+    "build": "eleventy && npx pagefind --site _site",
+    "build:index": "npx pagefind --site _site",
+    "clean": "del-cli _site",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "DEBUG=Eleventy* npx @11ty/eleventy",
     "debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
     "benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
@@ -15,13 +20,29 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
-    "@11ty/eleventy-img": "^3.1.0",
+    "@11ty/eleventy-img": "^3.1.8",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-bundle": "^1.0.4",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
-    "luxon": "^3.3.0",
-    "markdown-it-anchor": "^8.6.7",
-    "markdown-it-attrs": "^4.1.6"
+    "@11ty/eleventy-plugin-vite": "^4.0.0",
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^7.0.1",
+    "del-cli": "^5.1.0",
+    "luxon": "^3.4.4",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.0.1",
+    "markdown-it-attrs": "^4.1.6",
+    "markdown-it-implicit-figures": "^0.12.0",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.77.4",
+    "striptags": "^3.2.0",
+    "vite": "^5.2.12"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "pagefind": "^1.1.0"
   }
 }

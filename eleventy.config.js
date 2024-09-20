@@ -10,6 +10,8 @@ const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+const EleventyVitePlugin = require('@11ty/eleventy-plugin-vite')
+
 
 const pluginImages = require('./eleventy.images.js')
 
@@ -26,6 +28,49 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginBundle);
+
+	eleventyConfig.addPlugin(EleventyVitePlugin, {
+		tempFolderName: '.11ty-vite', // Default name of the temp folder
+	
+		root: path.resolve(__dirname, 'src'),
+	
+		// Options passed to the Eleventy Dev Server
+		// e.g. domdiff, enabled, etc.
+	
+		// Added in Vite plugin v2.0.0
+		serverOptions: {},
+	
+		// Defaults are shown:
+		viteOptions: {
+		  // base: githubPath,
+		  clearScreen: false,
+		  appType: 'mpa', // New in v2.0.0
+		  assetsInclude: ['**/*.xml', '**/*.txt', 'CNAME'],
+		  base: '/', // use this instead of pathPrefix,
+		  publicDir: 'public',
+	
+		  // plugins: [pagefind()],
+	
+		  server: {
+			mode: 'development',
+			middlewareMode: true
+		  },
+	
+		  build: {
+			mode: 'production'
+		  },
+	
+		  // New in v2.0.0
+		  resolve: {
+			alias: {
+			  // Allow references to `node_modules` folder directly
+			  '/node_modules': path.resolve('.', 'node_modules'),
+			  '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+			  '~icons': path.resolve(__dirname, 'node_modules/bootstrap-icons')
+			}
+		  }
+		}
+	  })
 
 	// Filters
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
